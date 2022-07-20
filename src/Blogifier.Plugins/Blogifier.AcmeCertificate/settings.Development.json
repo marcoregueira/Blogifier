@@ -1,0 +1,39 @@
+{
+  "AcmeSettings": {
+    "CertificateStorage": "Blob", // KeyVault, Blob, Default
+    "EnableHttpsRedirection": true
+  },
+
+  "LettuceEncrypt": {
+    "UseStagingServer": false,
+
+    // Set this to automatically accept the terms of service of your certificate authority.
+    // If you don't set this in config, you will need to press "y" whenever the application starts
+    "AcceptTermsOfService": false,
+    "AllowedChallengeTypes": "Http01",
+    "DomainNames": [ "www.someblog.com" ],
+    "EmailAddress": "owner@someblog.com",
+    "AzureBlobStorage": {
+      "ConnectionString": "BlobEndpoint=https://fake.blob.core.windows.net/;QueueEndpoint=https://fake.queue.core.windows.net/;FileEndpoint=https://fake.file.core.windows.net/;TableEndpoint=https://fake.table.core.windows.net/;SharedAccessSignature=sv=2020-08-04&ss=b&srt=co&sp=rwdlacitfx&se=2099-10-25T00:52:04Z&st=2021-10-24T15:52:04Z&spr=https&sig=K3soQSGNtyOWu5fnsLrXXwONv8bP09GT8wOdyVZIzKU%3D",
+      "ContainerName": "fakedevelop",
+      "CertificateBlob": "wwwcertificate",
+      "CertificateKeyBlob": "wwwcertificateid",
+
+      // IMPORTANT: Enable this if you want to use the same certificate in multiple machines/containers
+      // it will store the Data protection key using a blob.
+      // You should read this before doing so. https://docs.microsoft.com/en-us/dotnet/api/overview/azure/extensions.aspnetcore.dataprotection.blobs-readme
+      "StoreDataProtectionInBlob": true,
+      "DataProtectionBlob": "wwwdataprotection"
+    },
+    "AzureKeyVault": {
+      "AzureKeyVaultEndpoint": "https://myaccount.vault.azure.net/",
+      // Optional - specify the secret name used to store your account info (used for cert rewewals)
+      // If not specified, name defaults to "le-encrypt-${ACME server URL}"
+      "AccountKeySecretName": "my-lets-encrypt-account"
+    },
+    "DirectoryStorage": {
+      "Directory": "Data",
+      "Password": "SECRET_PASSWORD_CHANGE_ME"
+    }
+  }
+}

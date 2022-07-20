@@ -34,6 +34,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "items", "items", "{D2E9C8BA
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.AcmeCertificate", "src\Blogifier.Plugins\Blogifier.AcmeCertificate\Blogifier.Plugin.AcmeCertificate.csproj", "{4D432884-2CC4-42EF-B6F2-323AFD41E7EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{0CE15C7C-439A-4FC6-A7FA-4FEB87A52D41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
