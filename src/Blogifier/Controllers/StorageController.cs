@@ -37,7 +37,7 @@ namespace Blogifier.Controllers
 		[HttpPut("exists")]
 		public async Task<IActionResult> FileExists([FromBody] string path)
 		{
-			return (await Task.FromResult(_storageProvider.FileExists(path))) ? Ok() : BadRequest();
+			return _storageProvider.FileExists(path) ? Ok() : BadRequest();
 		}
 
 		[Authorize]

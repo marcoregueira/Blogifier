@@ -1,0 +1,37 @@
+### PLUGIN FILES
+#-----------------------------------------------------------#
+
+; disable a plugin by commenting it or removing the line with the dll path
+; disabled plugins won't be loaded at all
+; alternatively you can load plugins using environment variables
+; check each plugin folder for more info on how to configure them.
+
+# PLUGIN LIST
+#===============================================================================
+
+
+
+* gpdr shows a GPDR Cookie notification using this js add-on: https://orestbida.com/demo-projects/cookieconsent/
+  - remember to accept cookies before loging in!
+
+;gpdr/Blogifier.Plugin.Gpdr.dll
+
+* acmecertificate will manage certificate renewal from ACME providers like Let'sEncrypt
+  - it is intended for those rare cases where you're not managing your certificates any other way
+  - and need to do it from the site itself
+  - Certificates can be saved in the file system, Azure Vault and Azure Blob Storage.
+  - Certificates can be shared between copies of the site using Azure for storage.
+
+;acmecertificate/Blogifier.Plugin.AcmeCertificate.dll
+
+
+# THEME LIST
+#===============================================================================
+* Note:
+   - You can only activate one theme at a time.
+   - You need to activate a theme, there is no default included theme in blogifier anymore.
+   - "theme.one" is the default Blogifier theme. Now it must be loaded separately.
+   - "Freelancer" is a free theme form Smartbootstrap.
+
+theme.one/Blogifier.Plugin.Theme.One.dll
+;theme.freelancer/Blogifier.Plugin.Theme.Freelancer.dll

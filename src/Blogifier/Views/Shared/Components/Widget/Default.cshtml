@@ -1,0 +1,7 @@
+@using Blogifier.Core.Web
+@model List<WidgetModel>
+
+@foreach (var widget in Model)
+{
+    @await Component.InvokeAsync(widget.Name, widget.Model);
+}
