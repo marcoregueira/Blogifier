@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.AcmeCertif
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{0CE15C7C-439A-4FC6-A7FA-4FEB87A52D41}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.Theme.One", "src\Blogifier.Plugins\Blogifier.Plugin.Theme.One\Blogifier.Plugin.Theme.One.csproj", "{D40C8ABF-7943-4E9D-A106-F5C49E91AC7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
