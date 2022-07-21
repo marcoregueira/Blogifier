@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <!--
+    Following is required for dinamically linked libraries.
+    The standard behaviour for a a Razor RCL library is to copy
+    its wwwroot folder to wwwwroot/_components/libraryname
+    
+    IF at some point we decide to use this library statically linked or as a nupkg, we need to remove
+    the following CopyToOutputDirectory section.
+  -->
+  <ItemGroup>
+    <None Include="$(ProjectDir)wwwroot\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../../../plugins/gpdr</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>../../../plugins/gpdr</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Blogifier.Core\Blogifier.Core.csproj">
+      <Private>false</Private>
+      <CopyLocal>False</CopyLocal>
+      <ExcludeAssets>runtime</ExcludeAssets>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Blogifier.Shared\Blogifier.Shared.csproj">
+      <Private>false</Private>
+      <CopyLocal>False</CopyLocal>
+      <ExcludeAssets>runtime</ExcludeAssets>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>
