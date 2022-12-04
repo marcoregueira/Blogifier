@@ -1,0 +1,13 @@
+@using Blogifier.Shared
+@using Blogifier.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Resource> _localizer
+@{
+    var request = Url.ActionContext.HttpContext.Request;
+    var absoluteUrl = $"{request.Scheme}://{request.Host.ToUriComponent()}{request.PathBase.ToUriComponent()}";
+    var siteTitle = Model.Blog.Title;
+    var siteDesc = Model.Blog.Description;
+}
+
+<!-- Masthead-->
+<partial name="../components/nav.cshtml" />

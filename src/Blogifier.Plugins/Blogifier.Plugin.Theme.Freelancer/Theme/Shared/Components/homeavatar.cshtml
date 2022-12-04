@@ -1,0 +1,28 @@
+@using Blogifier.Shared
+@using Blogifier.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Resource> _localizer
+@{
+    var request = Url.ActionContext.HttpContext.Request;
+    var absoluteUrl = $"{request.Scheme}://{request.Host.ToUriComponent()}{request.PathBase.ToUriComponent()}";
+    var siteTitle = Model.Blog.Title;
+    var siteDesc = Model.Blog.Description;
+}
+
+
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image-->
+        <img class="masthead-avatar mb-5" src="/_content/Blogifier.Plugin.Theme.Freelancer/assets/img/avataaars.svg" alt="..." />
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">@siteTitle</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0">@siteDesc</p>
+    </div>
+</header>

@@ -1,0 +1,20 @@
+@using Blogifier.Core.Web.Theme
+@using Blogifier.Shared.Resources
+@using Blogifier.Shared
+@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
+@inject IStringLocalizer<Resource> _localizer
+@inject IOptions<LayoutOptions> _layoutOptions
+@inject IOptions<FreelancerThemeSettings> _options
+@{
+    var siteTitle = Model.Blog.Title;
+    var version = "3.0";
+    var settings = _options.Value;
+}
+
+@await Component.InvokeAsync("IndexFooter")
+
+<!-- Copyright Section-->
+<div class="copyright py-4 text-center text-white">
+    <div class="container"><small>Copyright &copy; @settings.CopyrightLine</small></div>
+</div>

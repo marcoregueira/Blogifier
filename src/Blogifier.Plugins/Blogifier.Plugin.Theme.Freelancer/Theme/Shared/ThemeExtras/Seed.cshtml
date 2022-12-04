@@ -1,0 +1,43 @@
+@using Blogifier.Core.Web
+@using Blogifier.Shared
+@using Blogifier.Core.Providers
+@using Blogifier.Core.Extensions
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model dynamic
+
+@{
+    Layout = "../layouts/_main.cshtml";
+}
+
+<div class="container page-container">
+    <div class="page-container">
+        <section class="page-section container">
+
+            <div class="row">
+                <div class="col-lg-8 me-auto">
+                    <h3>Install demo data</h3>
+                    <p>Provide your user name and password to add the demo data for the site. This procedure will create the sample posts and content for various sections.</p>
+                    <p>It works better when used on an empty site. To be sure the site is empty, delete the database file from the data folder. Log in with your new credentials, and populate the site from here.</p>
+                    <p>Read the docs to find the settings you can use to configure the theme. You can set those settings by modifying the configuration file or setting environment variables.</p>
+                </div>
+                <div class="col-lg-4 me-auto">
+
+                    <form method="post" href="/theme.freelancer/freelancer/seed/">
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="email" id="user" type="email" placeholder="user@host.com" />
+                            <label for="user">Admin email</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="password" id="password" type="password" placeholder="*****" />
+                            <label for="password">Password</label>
+                            <div class="invalid-feedback visible-feedback">@ViewBag.Error</div>
+                        </div>
+
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Add Demo Data</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>

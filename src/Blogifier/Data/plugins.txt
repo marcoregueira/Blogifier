@@ -29,7 +29,7 @@
 #===============================================================================
 * Note:
    - You can only activate one theme at a time.
-   - You need to activate a theme, there is no default included theme in blogifier anymore.
+   - You need to activate a theme, there is no default theme included in blogifier anymore.
    - "theme.one" is the default Blogifier theme. Now it must be loaded separately.
    - "Freelancer" is a free theme form Smartbootstrap.
 

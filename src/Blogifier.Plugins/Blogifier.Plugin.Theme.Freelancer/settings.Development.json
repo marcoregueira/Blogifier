@@ -1,0 +1,24 @@
+{
+
+  "FreelancerThemeSettings": {
+    "EnableThemeConfigurationPage": true,
+    "CopyrightLine": "Freelancer 2022",
+    "BlogifierContactEnabled": false,
+    "SmartBootstrapContactEnabled": true,
+    "SmartbootstrapApiKey": "get your key from https://startbootstrap.com/solution/contact-forms or set BlogifierContactEnabled ",
+
+    "AboutSectionIcon": "fa-download",
+    "AboutSectionCallToAction": "Free download!",
+    "AboutSectionLink": "http://blogifier.net",
+
+    "EnableBlogPages": true,
+    "ShowPostInfo": false,
+    "ShowPostAuthorFooter": true,
+
+    "SocialFacebook": "#",
+    "SocialTwitter": "#",
+    "SocialLinkedIn": "#",
+    "SocialDribble": "",
+    "SocialGithub": "https://twitter.com/somebody"
+  }
+}
