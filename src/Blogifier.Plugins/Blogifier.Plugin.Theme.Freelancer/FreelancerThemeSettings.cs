@@ -17,6 +17,10 @@ public class FreelancerThemeSettings
 
     public bool BlogifierContactEnabled { get; set; } = false;
 
+    /// <summary>
+    /// This settings enables the contact section using SB Forms provided by Smart Bootstrap
+    /// Set to false to enable the default Blogifiear newsletter service
+    /// </summary>
     public bool SmartBootstrapContactEnabled { get; set; } = true;
     public string SmartbootstrapApiKey { get; set; } = "***DUMMY KEY***";
 
