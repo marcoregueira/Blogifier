@@ -1,5 +1,5 @@
 
-/* BLOGIFIER THEME SPECIFIC STYLES */
+/* FREELANCER THEME ADAPTATION STYLES */
 
 .bg-success .m-auto {
   /* Solves newsletter success message conflict */
@@ -9,6 +9,13 @@
   background-color: white;
 }
 
+section#about .lead a {
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* BLOGIFIER THEME SPECIFIC STYLES */
 .page-container {
   margin-top: 60px;
   margin-bottom: 40px;
