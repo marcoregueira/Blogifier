@@ -2,7 +2,7 @@ using Blogifier.Core.Extensions;
 using Blogifier.Shared;
 
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,11 +29,13 @@ namespace Blogifier.Core.Providers
         private string _storageRoot;
         private string _publicStorageRoot;
         private readonly string _slash = Path.DirectorySeparatorChar.ToString();
+        private readonly IConfiguration _configuration;
 
-        public StorageProvider()
+        public StorageProvider(IConfiguration configuration)
         {
             _storageRoot = $"{ContentRoot}{_slash}wwwroot{_slash}data{_slash}";
             _publicStorageRoot = Path.Combine(ContentRoot, "Data", "public");
+            _configuration = configuration;
         }
 
         public bool FileExists(string path)

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 as base
+FROM mcr.microsoft.com/dotnet/sdk:7.0 as base
 
 # Copy everything else and build
 COPY ./ /opt/blogifier
@@ -13,7 +13,7 @@ RUN ["dotnet","build","./src/Blogifier.Plugins/Blogifier.Gpdr/Blogifier.Plugin.G
 RUN ["dotnet","build","./src/Blogifier.Plugins/Blogifier.Plugin.Theme.Freelancer/Blogifier.Plugin.Theme.Freelancer.csproj","-o","./outputs/plugins/theme.freelancer/" ]
 RUN ["dotnet","build","./src/Blogifier.Plugins/Blogifier.Plugin.Theme.One/Blogifier.Plugin.Theme.One.csproj","-o","./outputs/plugins/theme.one/" ]
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 as run
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine as run
 COPY --from=base /opt/blogifier/outputs /opt/blogifier/outputs
 
 EXPOSE 80 
