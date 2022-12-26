@@ -27,7 +27,7 @@ namespace Blogifier.Core.Web.Theme
             //get theme name
             //get theme locations
 
-            if (context.AreaName != "")
+            if (string.IsNullOrEmpty(context.AreaName))
                 Console.WriteLine("area" + context.AreaName);
 
             var locations = viewLocations

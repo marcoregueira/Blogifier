@@ -1,0 +1,24 @@
+.call_to_action {
+  margin-top: 1rem;
+  text-align: center;
+}
+.call_to_action .button {
+  padding: 0 0.75rem 0 1.5rem;
+  border-radius: 0.3rem;
+  display: inline-block;
+  background-color: #009e66;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 2.5rem;
+}
+.call_to_action .button:hover {
+  background-color: #009460;
+}
+.call_to_action .button .icon {
+  vertical-align: middle;
+}
+
+/*# sourceMappingURL=extras.css.map */

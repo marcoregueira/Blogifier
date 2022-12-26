@@ -50,6 +50,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.Theme.One"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.Theme.Freelancer", "src\Blogifier.Plugins\Blogifier.Plugin.Theme.Freelancer\Blogifier.Plugin.Theme.Freelancer.csproj", "{367B3098-778A-4619-88C8-1885AAE448E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogifier.SmartCodes", "Blogifier.SmartCodes\Blogifier.SmartCodes.csproj", "{2621576C-6016-4B8B-BF97-D27CF6CC8024}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,6 +170,18 @@ Global
 		{367B3098-778A-4619-88C8-1885AAE448E0}.Release|x64.Build.0 = Release|Any CPU
 		{367B3098-778A-4619-88C8-1885AAE448E0}.Release|x86.ActiveCfg = Release|Any CPU
 		{367B3098-778A-4619-88C8-1885AAE448E0}.Release|x86.Build.0 = Release|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Debug|x64.Build.0 = Debug|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Debug|x86.Build.0 = Debug|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Release|x64.ActiveCfg = Release|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Release|x64.Build.0 = Release|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Release|x86.ActiveCfg = Release|Any CPU
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,6 +193,7 @@ Global
 		{2BFE5B61-F5B0-4AAA-9124-F33C6CE51D9B} = {0CE15C7C-439A-4FC6-A7FA-4FEB87A52D41}
 		{D40C8ABF-7943-4E9D-A106-F5C49E91AC7F} = {0CE15C7C-439A-4FC6-A7FA-4FEB87A52D41}
 		{367B3098-778A-4619-88C8-1885AAE448E0} = {0CE15C7C-439A-4FC6-A7FA-4FEB87A52D41}
+		{2621576C-6016-4B8B-BF97-D27CF6CC8024} = {0CE15C7C-439A-4FC6-A7FA-4FEB87A52D41}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8AA706E7-D820-4892-9F60-FCEEDC51FF5E}

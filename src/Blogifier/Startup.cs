@@ -1,9 +1,10 @@
 using System;
 using System.IO;
-
+using Blogifier.Components;
 using Blogifier.Core.Extensions;
 using Blogifier.Core.Plugins;
-
+using Blogifier.SmartCodes.Shared;
+using Framework.Providers.Wiki.Interprete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,8 @@ namespace Blogifier
 
             services.AddPlugins();
 
+            services.AddScoped<ShortcodeParser>();
+            services.AddScoped<ISmartCodeRenderer, SmartCodeRenderer>();
             //services.AddTransient<ViewLocationExtender>();
             //services.AddOptions<RazorViewEngineOptions>().Configure<ViewLocationExtender>((options, expander) => options.ViewLocationExpanders.Add(expander));
 
