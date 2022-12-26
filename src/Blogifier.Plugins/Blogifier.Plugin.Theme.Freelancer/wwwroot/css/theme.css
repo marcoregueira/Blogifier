@@ -41,7 +41,7 @@ footer p {
 }
 
 figure.post-cover {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 
@@ -68,11 +68,11 @@ figure.post-cover {
   opacity: .9
 }
 
-.post-cover-img .img-responsive {
-  display: block;
-  width: auto;
-  max-height: 100%;
-}
+  .post-cover-img .img-responsive {
+    display: block;
+    width: auto;
+    max-height: 100%;
+  }
 
 .post-cover-caption {
   display: block;
