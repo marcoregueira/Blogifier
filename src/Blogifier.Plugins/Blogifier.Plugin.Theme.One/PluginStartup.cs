@@ -5,7 +5,6 @@ using Blogifier.Core.Web.Theme;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,7 +57,6 @@ namespace Blogifier.Plugin.Theme.One
                 ?? throw new NullReferenceException("IStorageProvider is not registered");
 
             var pluginsRoot = storage.FindFolderInRoute(env.ContentRootPath, "plugins");
-
             var themeAssembly = GetType().Assembly;
             var location = Path.GetDirectoryName(themeAssembly.Location);
             var localwwwroot = Path.Combine(pluginsRoot.path, Path.Combine(location, "wwwroot"));

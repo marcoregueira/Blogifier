@@ -89,11 +89,11 @@ public class HomeController : Controller
             if (IsViewExists(viewPath))
                 return View(viewPath, model);
             else
-                return Redirect("~/home");
+                return Redirect("~/");
         }
         else
         {
-            return Redirect("~/home");
+            return Redirect("~/");
         }
     }
 

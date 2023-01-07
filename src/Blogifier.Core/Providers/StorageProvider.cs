@@ -40,7 +40,6 @@ namespace Blogifier.Core.Providers
 
         public bool FileExists(string path)
         {
-            Serilog.Log.Information($"File exists: {Path.Combine(ContentRoot, path)}");
             return File.Exists(Path.Combine(ContentRoot, path));
         }
 
