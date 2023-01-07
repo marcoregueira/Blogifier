@@ -15,7 +15,7 @@ namespace Blogifier.Core.Providers
 			var settings = new Dictionary<string, string>();
 			settings.Add("one", "<div>the one</div>");
 			settings.Add("two", "<div>the two</div>");
-			return await Task.FromResult(settings);
+			return (settings);
 		}
 	}
 }

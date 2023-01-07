@@ -259,7 +259,7 @@ namespace Blogifier.Core.Providers
 					.SingleAsync(p => p.Slug == $"{slug}{i}");
 
 				if (post == null)
-					return await Task.FromResult(slug + i.ToString());
+					return (slug + i.ToString());
 			}
 			return slug;
 		}

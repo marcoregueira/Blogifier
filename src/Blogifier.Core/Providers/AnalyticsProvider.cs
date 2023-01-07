@@ -37,7 +37,7 @@ namespace Blogifier.Core.Providers
                 DisplayPeriod = blog.AnalyticsPeriod > 0 ? (AnalyticsPeriod)blog.AnalyticsPeriod : AnalyticsPeriod.Days7
 			};
 
-			return await Task.FromResult(model);
+			return model;
 		}
 
         public async Task<bool> SaveDisplayType(int type)

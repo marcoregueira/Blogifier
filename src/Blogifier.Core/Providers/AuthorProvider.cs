@@ -38,16 +38,16 @@ namespace Blogifier.Core.Providers
 			return await _db.Authors.ToListAsync();
 		}
 
-		public async Task<Author> FindByEmail(string email)
+		public Task<Author> FindByEmail(string email)
 		{
-			return await Task.FromResult(_db.Authors.Where(a => a.Email == email).FirstOrDefault());
+			return _db.Authors.Where(a => a.Email == email).FirstOrDefaultAsync();
 		}
 
 		public async Task<bool> Verify(LoginModel model)
 		{
 			Serilog.Log.Warning($"Verifying password for {model.Email}");
 
-			Author existing = await Task.FromResult(_db.Authors.Where(a =>
+			Author existing = (_db.Authors.Where(a =>
 				a.Email == model.Email).FirstOrDefault());
 
 			if (existing == null)

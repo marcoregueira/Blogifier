@@ -1,4 +1,4 @@
-﻿using Blogifier.Core.Providers;
+using Blogifier.Core.Providers;
 using Blogifier.Shared;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -91,7 +91,7 @@ namespace Blogifier.Controllers
 		public async Task<ActionResult<bool>> LogOutUser()
 		{
 			await HttpContext.SignOutAsync();
-			return await Task.FromResult(true);
+			return (true);
 		}
 
 		[Authorize]

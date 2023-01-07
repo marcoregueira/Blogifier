@@ -50,9 +50,9 @@ namespace Blogifier.Controllers
 			//System.Threading.Thread.Sleep(1000);
 
 			//if(ok)
-			//	return await Task.FromResult(Ok());
+			//	return (Ok());
 			//else
-			//	return await Task.FromResult(BadRequest());
+			//	return (BadRequest());
 		}
 	}
 }

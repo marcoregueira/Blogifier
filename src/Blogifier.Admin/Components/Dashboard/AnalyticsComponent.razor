@@ -182,7 +182,7 @@
 
    protected async Task ToggleAnalyticsView(bool isGraph)
    {
-       _hideGraph = await Task.FromResult(!isGraph);
+       _hideGraph = (!isGraph);
        _hideList = isGraph;
 
        int typeId = isGraph ? 2 : 1;

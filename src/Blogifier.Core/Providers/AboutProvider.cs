@@ -32,7 +32,7 @@ namespace Blogifier.Core.Providers
 
             model.OperatingSystem = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
 
-            return await Task.FromResult(model);
+            return model;
         }
     }
 }

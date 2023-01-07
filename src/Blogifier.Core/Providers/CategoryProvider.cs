@@ -37,8 +37,7 @@ namespace Blogifier.Core.Providers
         public async Task<List<CategoryItem>> Categories()
         {
             var cats = new List<CategoryItem>();
-
-            if (_db.Posts != null && _db.Posts.Count() > 0)
+            if (await _db.Posts.AnyAsync())
             {
                 foreach (var pc in _db.PostCategories.Include(pc => pc.Category).AsNoTracking())
                 {
@@ -61,7 +60,7 @@ namespace Blogifier.Core.Providers
                     }
                 }
             }
-            return await Task.FromResult(cats);
+            return cats;
         }
 
         public async Task<List<CategoryItem>> SearchCategories(string term)

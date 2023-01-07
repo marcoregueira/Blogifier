@@ -1,4 +1,4 @@
-﻿using Blogifier.Shared;
+using Blogifier.Shared;
 using Microsoft.SyndicationFeed;
 using Microsoft.SyndicationFeed.Atom;
 using System;
@@ -51,7 +51,7 @@ namespace Blogifier.Core.Providers
             items.Add(item);
          }
 
-         return await Task.FromResult(items);
+         return items;
       }
    }
 }
