@@ -66,10 +66,10 @@ namespace Framework.Providers.Wiki.Interprete
             }
         }
 
-        private void ApplyTextReplacement(TextReplacement reemplazo)
+        private void ApplyTextReplacement(TextReplacement replacement)
         {
-            Parser.ShortcodeInfo.Content.Remove(reemplazo.TextRange.From, reemplazo.TextRange.Length);
-            Parser.ShortcodeInfo.Content.Insert(reemplazo.TextRange.From, reemplazo.Content.ToString());
+            Parser.ShortcodeInfo.Content.Remove(replacement.TextRange.From, replacement.TextRange.Length);
+            Parser.ShortcodeInfo.Content.Insert(replacement.TextRange.From, replacement.Content.ToString());
         }
     }
 }

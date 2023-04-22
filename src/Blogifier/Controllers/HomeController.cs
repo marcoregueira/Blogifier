@@ -27,8 +27,8 @@ public class HomeController : Controller
     protected readonly IThemeProvider _themeProvider;
     protected readonly IStorageProvider _storageProvider;
     protected readonly ICompositeViewEngine _compositeViewEngine;
-    protected readonly ShortcodeParser _wiki;
-    private readonly ISmartCodeRenderer smartCodeRenderer;
+    protected readonly ShortcodeParser _shortCodeParser;
+    private readonly ISmartCodeRenderer _smartCodeRenderer;
 
     public object renderer { get; private set; }
 
@@ -44,8 +44,8 @@ public class HomeController : Controller
         _themeProvider = themeProvider;
         _storageProvider = storageProvider;
         _compositeViewEngine = compositeViewEngine;
-        _wiki = wiki;
-        this.smartCodeRenderer = smartCodeRenderer;
+        _shortCodeParser = wiki;
+        this._smartCodeRenderer = smartCodeRenderer;
     }
 
     public async Task<IActionResult> Index(int page = 1)
@@ -278,10 +278,10 @@ public class HomeController : Controller
 
     private async Task<string> ParseShortcodesAsync(string text, ControllerContext controllerContext, ViewDataDictionary viewData, ITempDataDictionary tempData)
     {
-        var renderer = smartCodeRenderer as SmartCodeRenderer;
+        var renderer = _smartCodeRenderer as SmartCodeRenderer;
         renderer.SetContext(controllerContext, viewData, tempData);
-        _wiki.SetContent(text);
-        await _wiki.ProcesarAsync();
-        return _wiki.ShortcodeInfo.Content.ToString();
+        _shortCodeParser.SetContent(text);
+        await _shortCodeParser.ApplyShortcodes();
+        return _shortCodeParser.ShortcodeInfo.Content.ToString();
     }
 }

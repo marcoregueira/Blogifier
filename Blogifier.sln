@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.Theme.One"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.Plugin.Theme.Freelancer", "src\Blogifier.Plugins\Blogifier.Plugin.Theme.Freelancer\Blogifier.Plugin.Theme.Freelancer.csproj", "{367B3098-778A-4619-88C8-1885AAE448E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogifier.SmartCodes", "Blogifier.SmartCodes\Blogifier.SmartCodes.csproj", "{2621576C-6016-4B8B-BF97-D27CF6CC8024}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogifier.SmartCodes", "Blogifier.SmartCodes\Blogifier.SmartCodes.csproj", "{2621576C-6016-4B8B-BF97-D27CF6CC8024}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

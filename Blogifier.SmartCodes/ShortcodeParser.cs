@@ -48,7 +48,7 @@ public class ShortcodeParser
         return this;
     }
 
-    public async Task ProcesarAsync()
+    public async Task ApplyShortcodes()
     {
         foreach (var plugin in this.Plugins)
         {
