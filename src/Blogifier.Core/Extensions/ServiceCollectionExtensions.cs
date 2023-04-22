@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-
 using System;
 
 namespace Blogifier.Core.Extensions
@@ -20,24 +18,16 @@ namespace Blogifier.Core.Extensions
             var conn = section.GetValue<string>("ConnString");
 
             if (section.GetValue<string>("DbProvider") == "SQLite")
-                services.AddDbContext<AppDbContext>(o => o.UseSqlite(conn));
-
-            if (section.GetValue<string>("DbProvider") == "SqlServer")
-                services.AddDbContext<AppDbContext>(o => o.UseSqlServer(conn));
-
-            if (section.GetValue<string>("DbProvider") == "Postgres")
-                services.AddDbContext<AppDbContext>(o => o.UseNpgsql(conn));
-
-            //TODO: this is not tested
-            if (section.GetValue<string>("DbProvider") == "MySql")
             {
-                //services.AddDbContextPool<AppDbContext>(
-                //	dbContextOptions => dbContextOptions.UseMySql(
-                //		section.GetValue<string>("ConnString"),
-                //		new MySqlServerVersion(new Version(8, 0, 21)),
-                //		mySqlOptions => mySqlOptions.HasCharSet("utf8mb4", DelegationModes.ApplyToAll) //CharSetBehavior(CharSetBehavior.NeverAppend)
-                //	)
-                //);
+                services.AddDbContext<AppDbContext>(o => o.UseSqlite(conn));
+            }
+            else
+            {
+                // The standard version of Blogifier allows multiple providers,
+                // but requires to change the code to add new migrations.
+                // I'm removing all providers that haver not explicit support OTB
+                // until migrations for each provider are implemented in the standar build.
+                throw new NotImplementedException("Only SQLite is implemented by now.");
             }
             services.AddDatabaseDeveloperPageExceptionFilter();
             return services;
