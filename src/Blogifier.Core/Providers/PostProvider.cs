@@ -177,7 +177,7 @@ namespace Blogifier.Core.Providers
 
             await SetOlderNewerPosts(post, model);
 
-            await this._db.Posts.Where(x => x.Slug == slug)
+            await this._db.Posts.Where(x => x.Id == post.Id)
                 .ExecuteUpdateAsync(x => x.SetProperty(x => x.PostViews, x => x.PostViews + 1));
 
             await _db.SaveChangesAsync();
