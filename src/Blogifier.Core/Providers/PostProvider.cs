@@ -4,6 +4,7 @@ using Blogifier.Shared;
 using Blogifier.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,42 +168,58 @@ namespace Blogifier.Core.Providers
         {
             var model = new PostModel();
 
-            var all = _db.Posts
+            var post = _db.Posts
                .AsNoTracking()
                .Include(p => p.PostCategories)
-               .OrderByDescending(p => p.IsFeatured)
-               .ThenByDescending(p => p.Published).ToList();
+               .FirstOrDefault(p => p.Slug == slug);
 
-            await SetOlderNewerPosts(slug, model, all);
+            model.Post = await PostToItem(post);
 
-            var post = await _db.Posts.SingleAsync(p => p.Slug == slug);
-            post.PostViews++;
+            await SetOlderNewerPosts(post, model);
+
+            await this._db.Posts.Where(x => x.Slug == slug)
+                .ExecuteUpdateAsync(x => x.SetProperty(x => x.PostViews, x => x.PostViews + 1));
+
             await _db.SaveChangesAsync();
-
             model.Related = await Search(new Pager(1), model.Post.Title, 0, "PF", true);
             model.Related = model.Related.Where(r => r.Id != model.Post.Id).ToList();
 
             return model;
         }
 
-        private async Task SetOlderNewerPosts(string slug, PostModel model, List<Post> all)
+        private async Task SetOlderNewerPosts(Post currentPost, PostModel model)
         {
-            if (all != null && all.Count > 0)
+            var when = currentPost.Published == DateTime.MinValue ?
+                currentPost.DateCreated : currentPost.Published;
+
+            var before = _db.Posts
+                       .Where(x => x.Published < when)
+                       .OrderByDescending(p => p.IsFeatured)
+                       .ThenByDescending(p => p.Published)
+                       .Take(1);
+
+            var after = _db.Posts
+               .Where(x => x.Published >= when && x.Slug != currentPost.Slug)
+               .OrderByDescending(p => p.IsFeatured)
+               .ThenByDescending(p => p.Published)
+               .Take(1);
+
+            var twoContiguousPosts = before.Concat(after)
+                .AsNoTracking()
+                .ToList();
+
+            if (twoContiguousPosts != null)
             {
-                for (int i = 0; i < all.Count; i++)
+                var previous = twoContiguousPosts.FirstOrDefault(x => x.Published < model.Post.Published);
+                if (previous != null)
                 {
-                    if (all[i].Slug == slug)
-                    {
-                        model.Post = await PostToItem(all[i]);
+                    model.Older = await PostToItem(previous);
+                }
 
-                        if (i > 0 && all[i - 1].Published > DateTime.MinValue)
-                            model.Newer = await PostToItem(all[i - 1]);
-
-                        if (i + 1 < all.Count && all[i + 1].Published > DateTime.MinValue)
-                            model.Older = await PostToItem(all[i + 1]);
-
-                        break;
-                    }
+                var next = twoContiguousPosts.FirstOrDefault(x => x.Published > model.Post.Published);
+                if (next != null)
+                {
+                    model.Newer = await PostToItem(next);
                 }
             }
         }
@@ -441,3 +458,6 @@ namespace Blogifier.Core.Providers
         #endregion
     }
 }
+
+
+
