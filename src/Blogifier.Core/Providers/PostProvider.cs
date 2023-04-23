@@ -2,6 +2,7 @@ using Blogifier.Core.Data;
 using Blogifier.Core.Extensions;
 using Blogifier.Shared;
 using Blogifier.Shared.Extensions;
+using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -166,18 +167,20 @@ namespace Blogifier.Core.Providers
 
         public async Task<PostModel> GetPostModel(string slug)
         {
-            var model = new PostModel();
-
-            var post = _db.Posts
+            var post = await _db.Posts
                .AsNoTracking()
                .Include(p => p.PostCategories)
-               .FirstOrDefault(p => p.Slug == slug);
+               .FirstOrDefaultAsync(p => p.Slug == slug);
 
+            if (post == null)
+                return null;
+
+            var model = new PostModel();
             model.Post = await PostToItem(post);
 
             await SetOlderNewerPosts(post, model);
 
-            await this._db.Posts.Where(x => x.Id == post.Id)
+            await _db.Posts.Where(x => x.Id == post.Id)
                 .ExecuteUpdateAsync(x => x.SetProperty(x => x.PostViews, x => x.PostViews + 1));
 
             await _db.SaveChangesAsync();
@@ -193,6 +196,7 @@ namespace Blogifier.Core.Providers
                 currentPost.DateCreated : currentPost.Published;
 
             var before = _db.Posts
+                       .Where(x => x.Published != DateTime.MinValue)
                        .Where(x => x.Published < when)
                        .OrderByDescending(p => p.IsFeatured)
                        .ThenByDescending(p => p.Published)
