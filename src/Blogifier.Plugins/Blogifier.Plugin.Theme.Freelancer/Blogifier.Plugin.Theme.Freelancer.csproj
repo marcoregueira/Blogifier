@@ -76,9 +76,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.5" />
     <!-- si se confirma que esto funciona pasar al proyecto principal/core: -->
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>
