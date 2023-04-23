@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Framework.Providers.Wiki.Interprete;
 using Blogifier.SmartCodes.Shared;
 using Blogifier.Components;
-
 namespace Blogifier.Controllers;
 
 public class HomeController : Controller
@@ -203,8 +202,18 @@ public class HomeController : Controller
         try
         {
             ViewBag.Slug = slug;
-            PostModel model = await _postProvider.GetPostModel(slug);
+            var model = await _postProvider.GetPostModel(slug);
 
+            // If not found redirect to create post.
+            if (model == null && User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/admin/editor/" + slug);
+            }
+
+            if (model == null)
+            {
+                return Redirect("~/error");
+            }
             // If unpublished and unauthorised redirect to error / 404.
             if (model.Post.Published == DateTime.MinValue && !User.Identity.IsAuthenticated)
             {

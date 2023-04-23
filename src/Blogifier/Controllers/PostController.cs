@@ -3,7 +3,7 @@ using Blogifier.Shared;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,7 +35,17 @@ namespace Blogifier.Controllers
         [HttpGet("byslug/{slug}")]
         public async Task<ActionResult<Post>> GetPostBySlug(string slug)
         {
-            return await _postProvider.GetPostBySlug(slug);
+            var post = await _postProvider.GetPostBySlug(slug);
+
+            if (post == null)
+            {
+                post = new Post();
+                post.Title = "New post";
+                post.Slug = slug;
+                post.PostType = PostType.Post;
+                post.Published = DateTime.MinValue;
+            }
+            return post;
         }
 
         [HttpGet("getslug/{title}")]
