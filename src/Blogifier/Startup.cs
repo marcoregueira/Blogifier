@@ -50,6 +50,7 @@ namespace Blogifier
             services.AddBlogProviders();
             services.AddControllersWithViews();
 
+            services.AddMemoryCache();
             services.AddMvc();
 
             services.AddPlugins();

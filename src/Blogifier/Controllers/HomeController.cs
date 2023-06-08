@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Framework.Providers.Wiki.Interprete;
 using Blogifier.SmartCodes.Shared;
 using Blogifier.Components;
+using Microsoft.Extensions.Caching.Memory;
+
 namespace Blogifier.Controllers;
 
 public class HomeController : Controller
@@ -28,13 +30,14 @@ public class HomeController : Controller
     protected readonly ICompositeViewEngine _compositeViewEngine;
     protected readonly ShortcodeParser _shortCodeParser;
     private readonly ISmartCodeRenderer _smartCodeRenderer;
+    private readonly IMemoryCache _memoryCache;
 
     public object renderer { get; private set; }
 
     public HomeController(IBlogProvider blogProvider,
         IPostProvider postProvider, IFeedProvider feedProvider, IAuthorProvider authorProvider, IThemeProvider themeProvider,
         IStorageProvider storageProvider, ICompositeViewEngine compositeViewEngine, ShortcodeParser wiki,
-        ISmartCodeRenderer smartCodeRenderer)
+        ISmartCodeRenderer smartCodeRenderer, IMemoryCache memoryCache)
     {
         _blogProvider = blogProvider;
         _postProvider = postProvider;
@@ -44,7 +47,8 @@ public class HomeController : Controller
         _storageProvider = storageProvider;
         _compositeViewEngine = compositeViewEngine;
         _shortCodeParser = wiki;
-        this._smartCodeRenderer = smartCodeRenderer;
+        _smartCodeRenderer = smartCodeRenderer;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IActionResult> Index(int page = 1)
@@ -66,7 +70,7 @@ public class HomeController : Controller
     {
         if (!string.IsNullOrEmpty(slug))
         {
-            return await getSingleBlogPost(slug);
+            return await GetSingleBlogPost(slug);
         }
         return Redirect("~/");
     }
@@ -114,7 +118,7 @@ public class HomeController : Controller
     [HttpGet("posts/{slug}")]
     public async Task<IActionResult> Single(string slug)
     {
-        return await getSingleBlogPost(slug);
+        return await GetSingleBlogPost(slug);
     }
 
     [HttpGet("error")]
@@ -197,11 +201,14 @@ public class HomeController : Controller
     }
 
     [NonAction]
-    public async Task<IActionResult> getSingleBlogPost(string slug)
+    public async Task<IActionResult> GetSingleBlogPost(string slug)
     {
         try
         {
             ViewBag.Slug = slug;
+
+   
+
             var model = await _postProvider.GetPostModel(slug);
 
             // If not found redirect to create post.
@@ -220,13 +227,11 @@ public class HomeController : Controller
                 return Redirect("~/error");
             }
 
-            model.Blog = await _blogProvider.GetBlogItem();
-            model.Post.Description = model.Post.Description.MdToHtml();
-            model.Post.Content = model.Post.Content.MdToHtml();
             model.Post.Content = await ParseShortcodesAsync(model.Post.Content, ControllerContext, ViewData, TempData);
-
             if (!model.Post.Author.Avatar.StartsWith("data:"))
                 model.Post.Author.Avatar = Url.Content($"~/{model.Post.Author.Avatar}");
+
+
 
             if (model.Post.PostType == PostType.Page)
             {

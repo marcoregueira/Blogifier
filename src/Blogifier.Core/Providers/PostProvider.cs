@@ -3,9 +3,12 @@ using Blogifier.Core.Extensions;
 using Blogifier.Shared;
 using Blogifier.Shared.Extensions;
 using Microsoft.AspNetCore.Connections.Features;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,12 +41,15 @@ namespace Blogifier.Core.Providers
         private readonly AppDbContext _db;
         private readonly ICategoryProvider _categoryProvider;
         private readonly IConfiguration _configuration;
+        private readonly IBlogProvider _blogProvider;
+        private readonly ISmartCodeRenderer _smartCodeRenderer;
 
-        public PostProvider(AppDbContext db, ICategoryProvider categoryProvider, IConfiguration configuration)
+        public PostProvider(AppDbContext db, ICategoryProvider categoryProvider, IConfiguration configuration, IBlogProvider blogProvider)
         {
             _db = db;
             _categoryProvider = categoryProvider;
             _configuration = configuration;
+            _blogProvider = blogProvider;
         }
 
         public async Task<List<Post>> GetPosts(PublishedStatus filter, PostType postType)
@@ -186,9 +192,12 @@ namespace Blogifier.Core.Providers
             await _db.SaveChangesAsync();
             model.Related = await Search(new Pager(1), model.Post.Title, 0, "PF", true);
             model.Related = model.Related.Where(r => r.Id != model.Post.Id).ToList();
-
+            model.Blog = await _blogProvider.GetBlogItem();
+            model.Post.Description = model.Post.Description.MdToHtml();
+            model.Post.Content = model.Post.Content.MdToHtml();
             return model;
         }
+
 
         private async Task SetOlderNewerPosts(Post currentPost, PostModel model)
         {

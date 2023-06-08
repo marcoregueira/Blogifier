@@ -3,6 +3,8 @@ using Blogifier.Shared;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,10 +16,12 @@ namespace Blogifier.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostProvider _postProvider;
+        private readonly IMemoryCache _memoryCache;
 
-        public PostController(IPostProvider postProvider)
+        public PostController(IPostProvider postProvider, IMemoryCache memoryCache)
         {
             _postProvider = postProvider;
+            _memoryCache = memoryCache;
         }
 
         [HttpGet("list/{filter}/{postType}")]
@@ -35,8 +39,13 @@ namespace Blogifier.Controllers
         [HttpGet("byslug/{slug}")]
         public async Task<ActionResult<Post>> GetPostBySlug(string slug)
         {
-            var post = await _postProvider.GetPostBySlug(slug);
+            _memoryCache.TryGetValue(slug.ToUpper(), out Post post);
+            if (post != null)
+            {
+                return post;
+            }
 
+            post = await _postProvider.GetPostBySlug(slug);
             if (post == null)
             {
                 post = new Post();
@@ -44,7 +53,10 @@ namespace Blogifier.Controllers
                 post.Slug = slug;
                 post.PostType = PostType.Post;
                 post.Published = DateTime.MinValue;
+                return post;
             }
+
+            _memoryCache.Set(slug.ToUpper(), post);
             return post;
         }
 
@@ -58,6 +70,7 @@ namespace Blogifier.Controllers
         [HttpPost("add")]
         public async Task<ActionResult<bool>> AddPost(Post post)
         {
+            _memoryCache.Remove(post?.Slug.ToUpper());
             return await _postProvider.Add(post);
         }
 
@@ -65,6 +78,7 @@ namespace Blogifier.Controllers
         [HttpPut("update")]
         public async Task<ActionResult<bool>> UpdatePost(Post post)
         {
+            _memoryCache.Remove(post?.Slug.ToUpper());
             return await _postProvider.Update(post);
         }
 
@@ -86,6 +100,8 @@ namespace Blogifier.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<bool>> RemovePost(int id)
         {
+            var post = await _postProvider.GetPostById(id);
+            _memoryCache.Remove(post?.Slug.ToUpper());
             return await _postProvider.Remove(id);
         }
     }
